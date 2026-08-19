@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repeat Report - Ticket Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% if simulated_date %}
+    <div class="alert alert-warning text-center mb-0 rounded-0" role="alert" style="border-left:0; border-right:0;">
+        <strong>Modo de Simulación Activo.</strong> Fecha fija: {{ simulated_date }}
+    </div>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-md-block sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-primary">Ticket Analysis</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/repeat-report">
+                                <i class="fas fa-redo me-2"></i>
+                                Repeat Report
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/analysis">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Service Analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tickets">
+                                <i class="fas fa-search me-2"></i>
+                                Ticket Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-10 ms-sm-auto px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Repeat Report</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshReport()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="exportToExcel()">
+                                <i class="fas fa-file-excel"></i> Export to Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Filter Section -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Date Filters</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-end">
+                                    <div class="col-md-3 mb-2">
+                                        <label for="startDate" class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" id="startDate">
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <label for="endDate" class="form-label">End Date</label>
+                                        <input type="date" class="form-control" id="endDate">
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <button type="button" class="btn btn-primary w-100" onclick="applyDateFilter()">
+                                            <i class="fas fa-filter"></i> Apply Filter
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <button type="button" class="btn btn-outline-secondary w-100" onclick="clearDateFilter()">
+                                            <i class="fas fa-eraser"></i> Clear Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4 justify-content-center">
+                    <div class="col-md-4 mb-3">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                        <p class="card-text text-muted">Total Services</p>
+                                        <h3 class="card-title" id="total-services">-</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                        <p class="card-text text-muted">Repeated Services</p>
+                                        <h3 class="card-title" id="repeated-services">-</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                        <p class="card-text text-muted">Total Tickets</p>
+                                        <h3 class="card-title" id="total-incidents">-</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0" id="report-title">
+                                    Service Repeat Report - <span id="date-range">Loading...</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <small class="text-muted d-block mb-2" id="results-info">Loading...</small>
+                                        <input type="text" class="form-control" id="search-services" placeholder="Search services..." onkeyup="filterTable()">
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped" id="repeat-report-table">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th style="width: 5%;" class="text-center">#</th>
+                                                <th style="width: 30%;">Service</th>
+                                                <th style="width: 25%;">Client</th>
+                                                <th style="width: 15%;">Delivery Method</th>
+                                                <th style="width: 15%;">Radio Base / Provider</th>
+                                                <th style="width: 10%;" class="text-center">Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="report-table-body">
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted py-4">
+                                                    <i class="fas fa-spinner fa-spin fa-2x mb-3"></i>
+                                                    <br>Loading report data...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/app.js"></script>
+    <script>
+        let reportData = [];
+
+        // Initialize page when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default end date to today
+            const today = new Date();
+            document.getElementById('endDate').valueAsDate = today;
+            
+            // Set default start date to 30 days ago
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(today.getDate() - 30);
+            document.getElementById('startDate').valueAsDate = thirtyDaysAgo;
+            
+            loadRepeatReport();
+        });
+
+        async function loadRepeatReport(startDate = null, endDate = null) {
+            try {
+                let url = '/api/repeat-report';
+                const params = new URLSearchParams();
+                
+                // Add date parameters if provided
+                if (startDate && endDate) {
+                    params.append('start_date', startDate);
+                    params.append('end_date', endDate);
+                }
+                
+                if (params.toString()) {
+                    url += `?${params.toString()}`;
+                }
+                
+                console.log(`[DEBUG] Cargando repeat report con URL: ${url}`);
+                const data = await apiCall(url);
+                reportData = data.services || [];
+
+                // Update date range in title
+                if (data.date_range) {
+                    document.getElementById('date-range').textContent = `${data.date_range.start} - ${data.date_range.end}`;
+                }
+
+                // Update summary cards
+                document.getElementById('total-services').textContent = data.summary.total_services || 0;
+                document.getElementById('repeated-services').textContent = data.summary.repeated_services || 0;
+                document.getElementById('total-incidents').textContent = data.summary.total_incidents || 0;
+
+                // Display table
+                displayTable();
+            } catch (error) {
+                console.error('Failed to load repeat report:', error);
+                showError('Failed to load repeat report data', 'report-table-body');
+            }
+        }
+
+        function applyDateFilter() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates');
+                return;
+            }
+            
+            const startDateTime = new Date(startDate);
+            const endDateTime = new Date(endDate);
+            
+            if (startDateTime > endDateTime) {
+                alert('Start date must be before end date');
+                return;
+            }
+            
+            // Convertir a UTC antes de enviar al servidor
+            const startDateUTC = startDateTime.toISOString().split('T')[0];
+            const endDateUTC = endDateTime.toISOString().split('T')[0];
+            
+            console.log(`[DEBUG] Aplicando filtro de fechas (UTC): ${startDateUTC} a ${endDateUTC}`);
+            loadRepeatReport(startDateUTC, endDateUTC);
+        }
+
+        function clearDateFilter() {
+            // Reset to default dates (last 30 days)
+            const today = new Date();
+            document.getElementById('endDate').valueAsDate = today;
+            
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(today.getDate() - 30);
+            document.getElementById('startDate').valueAsDate = thirtyDaysAgo;
+            
+            loadRepeatReport();
+        }
+
+        function displayTable() {
+            const tbody = document.getElementById('report-table-body');
+            const resultsInfo = document.getElementById('results-info');
+
+            if (reportData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2"></i>
+                            <br>No repeat data found for the last month
+                        </td>
+                    </tr>
+                `;
+                resultsInfo.textContent = 'No services found';
+                return;
+            }
+
+            tbody.innerHTML = reportData.map((item, index) => `
+                <tr>
+                    <td class="text-center">
+                        <span class="badge bg-secondary">${index + 1}</span>
+                    </td>
+                    <td>
+                        <span class="service-link" style="color: #0d6efd; cursor: pointer; text-decoration: underline;" 
+                              onclick="showServiceDetails('${item.service}', '${item.client}')">
+                            ${item.service || 'Unknown Service'}
+                        </span>
+                    </td>
+                    <td>${item.client || 'Unknown Client'}</td>
+                    <td>${item.delivery_method || 'N/A'}</td>
+                    <td>${item.infrastructure || 'N/A'}</td>
+                    <td class="text-center">
+                        <span style="font-size: 14px; font-weight: bold; color: ${item.count > 5 ? '#dc3545' : item.count > 2 ? '#fd7e14' : '#198754'};">
+                            ${item.count}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+
+            resultsInfo.textContent = `Showing ${reportData.length} services`;
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('search-services').value.toLowerCase();
+            const rows = document.querySelectorAll('#report-table-body tr');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                if (row.cells.length === 6) { // Check for 6 columns now
+                    const serviceText = row.cells[1].textContent.toLowerCase();
+                    const clientText = row.cells[2].textContent.toLowerCase();
+                    const deliveryMethodText = row.cells[3].textContent.toLowerCase();
+                    const infrastructureText = row.cells[4].textContent.toLowerCase();
+
+                    const shouldShow = serviceText.includes(searchTerm) || 
+                                       clientText.includes(searchTerm) ||
+                                       deliveryMethodText.includes(searchTerm) ||
+                                       infrastructureText.includes(searchTerm);
+
+                    row.style.display = shouldShow ? '' : 'none';
+                    if (shouldShow) visibleCount++;
+                }
+            });
+
+            const resultsInfo = document.getElementById('results-info');
+            if (resultsInfo && searchTerm) {
+                resultsInfo.textContent = `Showing ${visibleCount} of ${reportData.length} services`;
+            } else if (resultsInfo) {
+                resultsInfo.textContent = `Showing ${reportData.length} services`;
+            }
+        }
+
+        function refreshReport() {
+            loadRepeatReport();
+        }
+
+        function exportToExcel() {
+            if (reportData.length === 0) {
+                alert('No data available to export');
+                return;
+            }
+
+            const csvContent = [
+                ['Service', 'Client', 'Delivery Method', 'Radio Base / Provider', 'Repeat Count'].join(','),
+                ...reportData.map(item => [
+                    `"${(item.service || 'Unknown Service').replace(/"/g, '""')}"`,
+                    `"${(item.client || 'Unknown Client').replace(/"/g, '""')}"`,
+                    `"${(item.delivery_method || 'N/A').replace(/"/g, '""')}"`,
+                    `"${(item.infrastructure || 'N/A').replace(/"/g, '""')}"`,
+                    item.count
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+
+            link.setAttribute('href', url);
+            link.setAttribute('download', `repeat_report_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        async function showServiceDetails(serviceName, clientName) {
+            try {
+                const response = await fetch(`/api/service-tickets?service=${encodeURIComponent(serviceName)}&client=${encodeURIComponent(clientName)}`);
+                const tickets = await response.json();
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch service tickets');
+                }
+
+                showTicketsModal(serviceName, tickets);
+            } catch (error) {
+                console.error('Error fetching service details:', error);
+                alert('Error loading service details. Please try again.');
+            }
+        }
+
+        function showTicketsModal(serviceName, tickets) {
+            const modalHtml = `
+                <div class="modal fade" id="serviceTicketsModal" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tickets: ${serviceName}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>TICKET</th>
+                                                <th>CREATED DATE</th>
+                                                <th>DURATION</th>
+                                                <th>CLIENT REPORT</th>
+                                                <th>INCIDENT</th>
+                                                <th>SOLUTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${tickets.map(ticket => `
+                                                <tr>
+                                                    <td>
+                                                        <a href="https://odoo.wispi.mx/web#id=${ticket.id}&cids=13-12-25-19&menu_id=1110&action=824&model=helpdesk.ticket&view_type=form" target="_blank" rel="noopener noreferrer">
+                                                            <strong>${ticket.id}</strong>
+                                                        </a>
+                                                    </td>
+                                                    <td>${ticket.created_date}</td>
+                                                    <td style="color: ${ticket.duration === 'Open' ? '#dc3545' : 'inherit'};">
+                                                        ${ticket.duration}
+                                                    </td>
+                                                    <td>${ticket.client_report || ''}</td>
+                                                    <td>${ticket.incident || ''}</td>
+                                                    <td>${ticket.solution || ''}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const existingModal = document.getElementById('serviceTicketsModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('serviceTicketsModal'));
+            modal.show();
+            document.getElementById('serviceTicketsModal').addEventListener('hidden.bs.modal', function () {
+                this.remove();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+2025-08-05 08:42:38,388 - ERROR - Excepción durante la extracción o procesamiento: 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/runner/workspace/main.py", line 121, in fetch_and_process_odoo_data
+    df['Etiquetas'] = df['Etiquetas'].apply(lambda x: ', '.join([tag[1] for tag in x]) if isinstance(x, list) and x else '')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pandas/core/series.py", line 4935, in apply
+    ).apply()
+      ^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pandas/core/apply.py", line 1422, in apply
+    return self.apply_standard()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pandas/core/apply.py", line 1502, in apply_standard
+    mapped = obj._map_values(
+             ^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pandas/core/base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pandas/core/algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "/home/runner/workspace/main.py", line 121, in <lambda>
+    df['Etiquetas'] = df['Etiquetas'].apply(lambda x: ', '.join([tag[1] for tag in x]) if isinstance(x, list) and x else '')
+                                                                ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/main.py", line 121, in <listcomp>
+    df['Etiquetas'] = df['Etiquetas'].apply(lambda x: ', '.join([tag[1] for tag in x]) if isinstance(x, list) and x else '')
+                                                                 ~~~^^^
+TypeError: 'int' object is not subscriptable

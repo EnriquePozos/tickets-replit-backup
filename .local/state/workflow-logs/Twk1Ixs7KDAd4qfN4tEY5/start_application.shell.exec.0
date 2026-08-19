@@ -1,0 +1,103 @@
+[2026-04-10 22:13:34 +0000] [194] [INFO] Starting gunicorn 23.0.0
+[2026-04-10 22:13:34 +0000] [194] [INFO] Listening at: http://0.0.0.0:5000 (194)
+[2026-04-10 22:13:34 +0000] [194] [INFO] Using worker: sync
+[2026-04-10 22:13:34 +0000] [230] [INFO] Booting worker with pid: 230
+[2026-04-10 22:13:34 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:34 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:34 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:35 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:13:36 +0000] [194] [INFO] Handling signal: winch
+2026-04-10 22:13:38,715 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-10 22:13:38,720 - INFO - Added job "fetch_and_process_odoo_data" to job store "default"
+2026-04-10 22:13:38,720 - INFO - Scheduler started
+2026-04-10 22:13:38,727 - INFO - Realizando la primera carga de datos al arrancar la aplicación...
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-10 22:13:38,727 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-10 22:13:38,727 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-04-10 22:13:39,480 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-11 04:13:39 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-11 22:13:39 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-11 22:13:39
+[DEBUG]    Hasta: 2026-04-11 04:13:39
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-11 22:13:39'), ('create_date', '<=', '2026-04-11 04:13:39'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1438.99 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1160
+================================================================================
+         ID  ... Reincidente
+986  154230  ...       False
+0    154229  ...        True
+987  154228  ...       False
+988  154227  ...       False
+989  154226  ...       False
+990  154224  ...        True
+991  154223  ...       False
+992  154222  ...        True
+234  154221  ...       False
+1    154219  ...        True
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+979  152752  ...       False
+980  152751  ...       False
+187  152748  ...       False
+188  152747  ...       False
+981  152746  ...       False
+982  152745  ...       False
+983  152743  ...       False
+984  152742  ...       False
+189  152741  ...       False
+985  152740  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 29 de 1160
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 744.82 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1160 tickets cargados en caché.
+[2026-04-10 22:20:03 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:20:50 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:20:50 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:20:50 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:30:54 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:40:19 +0000] [194] [INFO] Handling signal: winch
+[2026-04-10 22:40:52 +0000] [194] [INFO] Handling signal: term
+[2026-04-10 22:40:52 +0000] [230] [INFO] Worker exiting (pid: 230)
+[2026-04-10 22:40:52 +0000] [194] [INFO] Shutting down: Master

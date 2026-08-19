@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Service Analysis - Ticket Dashboard</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link href="/static/style.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+        
+    </head>
+    <body>
+        {% if simulated_date %}
+        <div class="alert alert-warning text-center mb-0 rounded-0" role="alert" style="border-left:0; border-right:0;">
+            <strong>Modo de Simulación Activo.</strong> Fecha fija: {{ simulated_date }}
+        </div>
+        {% endif %}
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav class="col-md-2 d-md-block sidebar">
+                    <div class="position-sticky pt-3">
+                        <div class="text-center mb-4">
+                            <h4 class="text-primary">Ticket Analysis</h4>
+                        </div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">
+                                    <i class="fas fa-chart-bar me-2"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/repeat-report">
+                                    <i class="fas fa-redo me-2"></i>
+                                    Repeat Report
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/analysis">
+                                    <i class="fas fa-chart-line me-2"></i>
+                                    Service Analysis
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/tickets">
+                                    <i class="fas fa-search me-2"></i>
+                                    Ticket Search
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main content -->
+                <main class="col-md-10 ms-sm-auto px-md-4 main-content">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+                    >
+                        <h1 class="h2">Service Timeline Analysis</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    onclick="refreshAnalysis()"
+                                >
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client Selection -->
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-user me-2"></i>Client
+                                        Selection
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label
+                                                for="clientSearch"
+                                                class="form-label"
+                                                >Search Client</label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="clientSearch"
+                                                placeholder="Type to search clients..."
+                                                onkeyup="filterClients()"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col-md-4 d-flex align-items-end"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary"
+                                                onclick="clearClientSelection()"
+                                            >
+                                                <i class="fas fa-eraser"></i>
+                                                Clear Selection
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label"
+                                                >Available Clients</label
+                                            >
+                                            <div
+                                                id="clientList"
+                                                class="border rounded p-3"
+                                                style="
+                                                    max-height: 200px;
+                                                    overflow-y: auto;
+                                                "
+                                            >
+                                                <div
+                                                    class="text-center text-muted py-3"
+                                                >
+                                                    <i
+                                                        class="fas fa-users fa-2x mb-2"
+                                                    ></i>
+                                                    <p>Loading clients...</p>
+                                                </div>
+                                            </div>
+                                            <small class="text-muted"
+                                                >Select a client to view their
+                                                services</small
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Selection (Hidden until client is selected) -->
+                    <div
+                        class="row mb-4"
+                        id="serviceSelectionCard"
+                        style="display: none"
+                    >
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-cogs me-2"></i>Service
+                                        Selection
+                                    </h5>
+                                    <small class="text-muted"
+                                        >Client:
+                                        <span id="selectedClientName"
+                                            >-</span
+                                        ></small
+                                    >
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label
+                                                for="serviceSearch"
+                                                class="form-label"
+                                                >Search Services</label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="serviceSearch"
+                                                placeholder="Type to search services..."
+                                                onkeyup="filterServices()"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col-md-4 d-flex align-items-end"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary me-2"
+                                                onclick="selectAllServices()"
+                                            >
+                                                <i
+                                                    class="fas fa-check-double"
+                                                ></i>
+                                                Select All
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary"
+                                                onclick="clearServiceSelection()"
+                                            >
+                                                <i class="fas fa-times"></i>
+                                                Clear All
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label"
+                                                >Available Services</label
+                                            >
+                                            <div
+                                                id="serviceList"
+                                                class="border rounded p-3"
+                                                style="
+                                                    max-height: 300px;
+                                                    overflow-y: auto;
+                                                "
+                                            >
+                                                <div
+                                                    class="text-center text-muted py-3"
+                                                >
+                                                    <i
+                                                        class="fas fa-cog fa-2x mb-2"
+                                                    ></i>
+                                                    <p>
+                                                        Select a client first to
+                                                        see services
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <small class="text-muted"
+                                                >Check the services you want to
+                                                include in the timeline</small
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                onclick="generateTimeline()"
+                                            >
+                                                <i
+                                                    class="fas fa-chart-line"
+                                                ></i>
+                                                Generate Timeline
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Chart -->
+                    <div
+                        class="row mb-4"
+                        id="timelineChartCard"
+                        style="display: none"
+                    >
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div
+                                    class="card-header d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <h5 class="card-title mb-0">
+                                            <i
+                                                class="fas fa-chart-line me-2"
+                                            ></i
+                                            >Service Timeline
+                                        </h5>
+                                        <small class="text-muted"
+                                            >Interactive timeline showing ticket
+                                            events over time</small
+                                        >
+                                    </div>
+                                    <div class="btn-group">
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-outline-primary"
+                                            onclick="viewInNewTab()"
+                                        >
+                                            <i class="fas fa-external-link-alt"></i> Ver en Nueva Pestaña
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-outline-primary"
+                                            onclick="exportTimelineData()"
+                                        >
+                                            <i class="fas fa-download"></i> Export
+                                            Data
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <div
+                                        id="altairTimelineChart"
+                                        style="
+                                            width: 100%;
+                                            min-height: 100px;
+                                            overflow-x: auto;
+                                        "
+                                    >
+                                        <!-- Altair chart will be embedded here -->
+                                    </div>
+                                    <div
+                                        id="timelineLoadingMessage"
+                                        class="text-center text-muted py-5"
+                                        style="display: none"
+                                    >
+                                        <i
+                                            class="fas fa-spinner fa-spin fa-2x mb-3"
+                                        ></i>
+                                        <h5>Generating Timeline...</h5>
+                                        <p>
+                                            Please wait while we create your
+                                            custom timeline visualization.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Summary -->
+                    <div
+                        class="row mb-4"
+                        id="summaryCards"
+                        style="display: none"
+                    >
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h4 class="text-primary" id="totalTickets">
+                                        -
+                                    </h4>
+                                    <small class="text-muted"
+                                        >Total Tickets</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h4
+                                        class="text-warning"
+                                        id="highPriorityTickets"
+                                    >
+                                        -
+                                    </h4>
+                                    <small class="text-muted"
+                                        >High Priority</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h4
+                                        class="text-success"
+                                        id="avgResolutionTime"
+                                    >
+                                        -
+                                    </h4>
+                                    <small class="text-muted"
+                                        >Avg Resolution</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radiobase Failures (Placeholder for future integration) -->
+                    <div
+                        class="row mb-4"
+                        id="radiobaseCard"
+                        style="display: none"
+                    >
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">
+                                        <i
+                                            class="fas fa-broadcast-tower me-2"
+                                        ></i
+                                        >Radiobase Failures
+                                    </h5>
+                                    <small class="text-muted"
+                                        >Connect to spreadsheet for radiobase
+                                        failure data</small
+                                    >
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <strong>Coming Soon:</strong> This
+                                        section will display radiobase failure
+                                        data when connected to the appropriate
+                                        spreadsheet.
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-primary"
+                                        disabled
+                                    >
+                                        <i class="fas fa-plug"></i> Configure
+                                        Spreadsheet Connection
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/app.js"></script>
+        <script>
+            // Initialize analysis page when loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                // Load filter options first for the select dropdowns
+                loadFilterOptions();
+                // Load clients for the client selection interface
+                loadAnalysisClients();
+            });
+        </script>
+    </body>
+</html>

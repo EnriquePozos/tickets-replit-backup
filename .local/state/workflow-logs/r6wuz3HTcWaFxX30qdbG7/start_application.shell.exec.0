@@ -1,0 +1,304 @@
+[2026-04-07 20:43:09 +0000] [79] [INFO] Starting gunicorn 23.0.0
+[2026-04-07 20:43:09 +0000] [79] [INFO] Listening at: http://0.0.0.0:5000 (79)
+[2026-04-07 20:43:09 +0000] [79] [INFO] Using worker: sync
+[2026-04-07 20:43:09 +0000] [95] [INFO] Booting worker with pid: 95
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:10 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:11 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:12 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:13 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:14 +0000] [79] [INFO] Handling signal: winch
+2026-04-07 20:43:14,160 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[2026-04-07 20:43:14 +0000] [79] [INFO] Handling signal: winch
+2026-04-07 20:43:14,170 - INFO - Added job "fetch_and_process_odoo_data" to job store "default"
+2026-04-07 20:43:14,170 - INFO - Scheduler started
+2026-04-07 20:43:14,179 - INFO - Realizando la primera carga de datos al arrancar la aplicación...
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-07 20:43:14,179 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-07 20:43:14,179 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+[2026-04-07 20:43:14 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 20:43:14 +0000] [79] [INFO] Handling signal: winch
+2026-04-07 20:43:14,925 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-08 02:43:14 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-08 20:43:14 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-08 20:43:14
+[DEBUG]    Hasta: 2026-04-08 02:43:14
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-08 20:43:14'), ('create_date', '<=', '2026-04-08 02:43:14'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1326.81 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1179
+================================================================================
+          ID  ... Reincidente
+998   154075  ...       False
+212   154074  ...        True
+999   154073  ...       False
+213   154072  ...       False
+0     154071  ...       False
+1000  154070  ...       False
+214   154069  ...       False
+1001  154068  ...       False
+1002  154067  ...       False
+1003  154065  ...       False
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+989  152592  ...       False
+990  152591  ...       False
+991  152588  ...       False
+170  152587  ...       False
+992  152585  ...       False
+993  152584  ...       False
+994  152583  ...       False
+995  152582  ...       False
+996  152581  ...       False
+997  152580  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 32 de 1179
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 737.96 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1179 tickets cargados en caché.
+2026-04-07 21:13:14,163 - INFO - Running job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 21:13:14 UTC)" (scheduled at 2026-04-07 21:13:14.160132+00:00)
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-07 21:13:14,166 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-07 21:13:14,166 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-04-07 21:13:14,846 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-08 03:13:14 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-08 21:13:14 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-08 21:13:14
+[DEBUG]    Hasta: 2026-04-08 03:13:14
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-08 21:13:14'), ('create_date', '<=', '2026-04-08 03:13:14'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 793.88 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1179
+================================================================================
+          ID  ... Reincidente
+999   154075  ...       False
+213   154074  ...        True
+1000  154073  ...       False
+214   154072  ...       False
+0     154071  ...       False
+1001  154070  ...       False
+215   154069  ...       False
+1002  154068  ...       False
+1003  154067  ...       False
+1     154065  ...       False
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+990  152592  ...       False
+991  152591  ...       False
+992  152588  ...       False
+171  152587  ...       False
+993  152585  ...       False
+994  152584  ...       False
+995  152583  ...       False
+996  152582  ...       False
+997  152581  ...       False
+998  152580  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 32 de 1179
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 737.02 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1179 tickets cargados en caché.
+2026-04-07 21:13:16,421 - INFO - Job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 21:43:14 UTC)" executed successfully
+2026-04-07 21:43:14,160 - INFO - Running job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 22:13:14 UTC)" (scheduled at 2026-04-07 21:43:14.160132+00:00)
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-07 21:43:14,162 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-07 21:43:14,162 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-04-07 21:43:14,993 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-08 03:43:14 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-08 21:43:14 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-08 21:43:14
+[DEBUG]    Hasta: 2026-04-08 03:43:14
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-08 21:43:14'), ('create_date', '<=', '2026-04-08 03:43:14'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1600.23 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1180
+================================================================================
+          ID  ... Reincidente
+999   154076  ...        True
+1000  154075  ...       False
+213   154074  ...        True
+1001  154073  ...       False
+214   154072  ...       False
+0     154071  ...       False
+1002  154070  ...       False
+215   154069  ...       False
+1003  154068  ...       False
+1004  154067  ...       False
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+990  152592  ...       False
+991  152591  ...       False
+992  152588  ...       False
+171  152587  ...       False
+993  152585  ...       False
+994  152584  ...       False
+995  152583  ...       False
+996  152582  ...       False
+997  152581  ...       False
+998  152580  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 32 de 1180
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 183.17 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1180 tickets cargados en caché.
+2026-04-07 21:43:16,821 - INFO - Job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 22:13:14 UTC)" executed successfully
+2026-04-07 22:13:14,160 - INFO - Running job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 22:43:14 UTC)" (scheduled at 2026-04-07 22:13:14.160132+00:00)
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-07 22:13:14,162 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-07 22:13:14,162 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-04-07 22:13:14,881 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-08 04:13:14 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-08 22:13:14 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-08 22:13:14
+[DEBUG]    Hasta: 2026-04-08 04:13:14
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-08 22:13:14'), ('create_date', '<=', '2026-04-08 04:13:14'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1355.60 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1181
+================================================================================
+          ID  ... Reincidente
+0     154078  ...        True
+1000  154076  ...        True
+1001  154075  ...       False
+214   154074  ...        True
+1002  154073  ...       False
+215   154072  ...       False
+1     154071  ...       False
+1003  154070  ...       False
+216   154069  ...       False
+1004  154068  ...       False
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+991  152592  ...       False
+992  152591  ...       False
+993  152588  ...       False
+172  152587  ...       False
+994  152585  ...       False
+995  152584  ...       False
+996  152583  ...       False
+997  152582  ...       False
+998  152581  ...       False
+999  152580  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 32 de 1181
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 190.05 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1181 tickets cargados en caché.
+2026-04-07 22:13:16,470 - INFO - Job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 22:43:14 UTC)" executed successfully
+2026-04-07 22:43:14,160 - INFO - Running job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 23:13:14 UTC)" (scheduled at 2026-04-07 22:43:14.160132+00:00)
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-04-07 22:43:14,162 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-04-07 22:43:14,162 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-04-07 22:43:14,918 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-04-08 04:43:14 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-03-08 22:43:14 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-03-08 22:43:14
+[DEBUG]    Hasta: 2026-04-08 04:43:14
+================================================================================
+['&', '&', ('create_date', '>=', '2026-03-08 22:43:14'), ('create_date', '<=', '2026-04-08 04:43:14'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1634.89 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 1184
+================================================================================
+          ID  ... Reincidente
+1001  154082  ...       False
+1002  154081  ...       False
+1003  154080  ...       False
+0     154078  ...        True
+1004  154076  ...        True
+1005  154075  ...       False
+214   154074  ...        True
+1006  154073  ...       False
+215   154072  ...       False
+1     154071  ...       False
+
+[10 rows x 18 columns]
+          ID  ... Reincidente
+992   152592  ...       False
+993   152591  ...       False
+994   152588  ...       False
+172   152587  ...       False
+995   152585  ...       False
+996   152584  ...       False
+997   152583  ...       False
+998   152582  ...       False
+999   152581  ...       False
+1000  152580  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 33 de 1184
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 787.08 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 1184 tickets cargados en caché.
+2026-04-07 22:43:17,387 - INFO - Job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-04-07 23:13:14 UTC)" executed successfully
+[2026-04-07 22:51:04 +0000] [79] [INFO] Handling signal: winch
+[2026-04-07 22:51:04 +0000] [79] [INFO] Handling signal: winch

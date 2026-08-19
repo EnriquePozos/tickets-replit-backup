@@ -1,0 +1,161 @@
+[2026-06-15 20:34:01 +0000] [225] [INFO] Starting gunicorn 23.0.0
+[2026-06-15 20:34:01 +0000] [225] [INFO] Listening at: http://0.0.0.0:5000 (225)
+[2026-06-15 20:34:01 +0000] [225] [INFO] Using worker: sync
+[2026-06-15 20:34:01 +0000] [250] [INFO] Booting worker with pid: 250
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:01 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:02 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:03 +0000] [225] [INFO] Handling signal: winch
+2026-06-15 20:34:08,450 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-15 20:34:08,467 - INFO - Added job "fetch_and_process_odoo_data" to job store "default"
+2026-06-15 20:34:08,467 - INFO - Scheduler started
+2026-06-15 20:34:08,480 - INFO - Realizando la primera carga de datos al arrancar la aplicación...
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-06-15 20:34:08,480 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-06-15 20:34:08,480 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-06-15 20:34:09,301 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-06-16 02:34:09 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-05-16 20:34:09 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-05-16 20:34:09
+[DEBUG]    Hasta: 2026-06-16 02:34:09
+================================================================================
+['&', '&', ('create_date', '>=', '2026-05-16 20:34:09'), ('create_date', '<=', '2026-06-16 02:34:09'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1261.71 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 964
+================================================================================
+         ID                                          Asunto  ...                                     service_id_raw Reincidente
+0    157158  SIN SERVICIO // CORRUGADOS Y EMBALAJES SULTANA  ...      [13633, [SOP-4389] SIDP-20 Mbps / EL CARMEN.]       False
+907  157157                   Cola N2P - INTERCLAN INTERNET  ...  [28672, [SOP-09120] SIDP-10 Mbps / RYDER ESCOB...       False
+251  157156                 SOP-13470, SITIO : NUEVO LAREDO  ...    [45702, [SOP-13470] SIDP-20mbps / NUEVO LAREDO]       False
+908  157154              SOP-15833, Sitio: Apaseo el Grande  ...  [52344, [SOP-15833] SIDP-30 Mbps / Apaseo el G...       False
+1    157153                                FALLA RB MIRASUR  ...                       [32, [SOP-00009] RB Mirasur]        True
+252  157152                SOP-12686, SITIO FIDEL VELAZQUEZ  ...  [41496, [SOP-12686] SIDP-100Mbps /  SITIO FIDE...        True
+2    157149     INTERMITECNCIA // LUIS FCO. REYES RODRIGUEZ  ...       [41264, [SOP-12223] SIMP-15 Mbps / Portales]       False
+909  157148               DR/COLOROBBIA MEXICO/degradación   ...  [11237, [SOP-1993] SIDP-40 Mbps / SITIO COLORO...       False
+253  157146                        SOP-14285, Sitio: Chalco  ...  [48202, [SOP-14285] HUUS, SID-5, SOLUCIONES AM...        True
+910  157145                     SOP-4287, SITIO RB MONCLOVA  ...  [13531, [SOP-4287] [SID-X-1] Internet Dedicado...       False
+
+[10 rows x 18 columns]
+         ID                                             Asunto  ...                                     service_id_raw Reincidente
+899  155761                            SENSOR LUZ RB COYOTEPEC  ...                     [62, [SOP-00018] RB Coyotepec]       False
+140  155759                     Sendor de Energia // Pesqueria  ...                     [38, [SOP-00011] RB Pesquería]       False
+900  155758      ELDA KASSANDRA PUGA MARTINEZ, SITIO LAS LOMAS  ...         [50542, [SOP-15181] SIP-30Mps / LAS LOMAS]       False
+901  155757                        SOP-14281, Sitio Ciprés 104  ...      [48263, [SOP-14281] SIR-10 Mbps / Ciprés 104]       False
+250  155756            SOP-00171, Sitio Colinas del Aeropuerto  ...    [38247, [SOP-00171] REP-COLINAS DEL AEROPUERTO]       False
+902  155755                  X100_AP_UBNT_LITE_AP_PENAL_II-SUR  ...  [13561, [SOP-4317] SIRA-8 Mbps /JOSE PABLO GOD...       False
+903  155754  Expereo Reference: CSE-02453180 | Closure Syst...  ...  [13594, [SOP-4350] SIE-10Mbps /  #5667, SITIO:...       False
+904  155753                                SENSOR RB PESQUERÍA  ...                     [38, [SOP-00011] RB Pesquería]       False
+905  155752               Alarma de energia //RB Mecasa Burgos  ...              [36243, [SOP-00082] RB Mecasa Burgos]       False
+906  155751              [SOP-12498] SIDP-20 Mbps /  Hotel 500  ...     [41173, [SOP-12498] SIDP-20 Mbps /  Hotel 500]       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 16 de 964
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 753.47 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 964 tickets cargados en caché.
+[2026-06-15 20:34:24 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:35 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:34:39 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:49:56 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:49:57 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:50:56 +0000] [225] [INFO] Handling signal: winch
+[2026-06-15 20:50:57 +0000] [225] [INFO] Handling signal: winch
+2026-06-15 21:04:08,530 - INFO - Running job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-06-15 21:04:08 UTC)" (scheduled at 2026-06-15 21:04:08.450393+00:00)
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-06-15 21:04:08,588 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-06-15 21:04:08,588 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-06-15 21:04:09,638 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-06-16 03:04:09 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-05-16 21:04:09 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-05-16 21:04:09
+[DEBUG]    Hasta: 2026-06-16 03:04:09
+================================================================================
+['&', '&', ('create_date', '>=', '2026-05-16 21:04:09'), ('create_date', '<=', '2026-06-16 03:04:09'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1402.24 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 968
+================================================================================
+         ID  ... Reincidente
+253  157163  ...        True
+254  157162  ...       False
+911  157161  ...        True
+0    157160  ...       False
+1    157158  ...       False
+912  157157  ...       False
+255  157156  ...       False
+913  157154  ...       False
+2    157153  ...        True
+256  157152  ...        True
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+903  155761  ...       False
+142  155759  ...       False
+904  155758  ...       False
+905  155757  ...       False
+252  155756  ...       False
+906  155755  ...       False
+907  155754  ...       False
+908  155753  ...       False
+909  155752  ...       False
+910  155751  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 16 de 968
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 714.32 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 968 tickets cargados en caché.
+2026-06-15 21:04:12,163 - INFO - Job "fetch_and_process_odoo_data (trigger: interval[0:30:00], next run at: 2026-06-15 21:34:08 UTC)" executed successfully

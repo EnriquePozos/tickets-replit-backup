@@ -1,0 +1,89 @@
+[2025-07-30 16:15:38 +0000] [389] [INFO] Starting gunicorn 23.0.0
+[2025-07-30 16:15:38 +0000] [389] [INFO] Listening at: http://0.0.0.0:5000 (389)
+[2025-07-30 16:15:38 +0000] [389] [INFO] Using worker: sync
+[2025-07-30 16:15:38 +0000] [411] [INFO] Booting worker[2025-07-30 16:15:38 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:38 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+[2025-07-30 16:15:39 +0000] [389] [INFO] Handling signal: winch
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): sheets.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://sheets.googleapis.com:443 "GET /v4/spreadsheets/124raprptfP37hcH4IFptNlKmDpKTHWzOVOX_ZILD5E8?includeGridData=false HTTP/1.1" 403 None
+ERROR:root:Error connecting to Google Sheets: 

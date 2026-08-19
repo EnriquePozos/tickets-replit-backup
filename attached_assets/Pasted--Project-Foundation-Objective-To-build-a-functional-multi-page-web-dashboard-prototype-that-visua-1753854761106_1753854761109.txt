@@ -1,0 +1,120 @@
+. Project Foundation
+Objective: To build a functional, multi-page web dashboard prototype that visualizes live ticket data from a Google Sheet.
+
+Architecture:
+
+Frontend: JavaScript, HTML, CSS (Handles all user interface and interaction).
+
+Backend: Python with Flask framework (Provides a data API).
+
+File Structure (in Replit):
+
+/
+├── main.py                # Python Backend API
+├── requirements.txt       # Python Libraries
+├── index.html             # Page 1: Dashboard
+├── analysis.html          # Page 2: Service Analysis
+├── tickets.html           # Page 3: Ticket Search
+└── static/
+    ├── style.css          # All visual styles
+    └── app.js             # All frontend JavaScript
+2. Data Model (Your Google Sheet)
+Your Google Sheet should have a worksheet named "Tickets". Based on the image you sent, these are the key columns your script will use. Ensure your sheet has these headers:
+
+Header (in Google Sheet)	Data Type	Purpose
+ID	Text/Number	Unique Ticket Identifier
+Asunto	Text	Ticket subject/title
+Creado el	Date/Time	Crucial for all time-based analysis
+Fecha de cierre	Date/Time	Used to calculate resolution time
+Etapa	Text	The current status (e.g., Open, Closed)
+Incidencia	Text	The type of issue (e.g., Service Failure)
+Cliente	Text	The name of the client company
+Servicio Rela	Text	The specific service affected
+Asignada a	Text	The assigned technician
+Prioridad	Text/Number	Ticket priority level
+Reincidente	TRUE/FALSE	A boolean flag for recurrent tickets
+
+Exportar a Hojas de cálculo
+3. Backend API (Python & Flask)
+The main.py file will serve data to your frontend. It will connect to your Google Sheet using a Service Account.
+
+Setup:
+
+Google Cloud: Create a Service Account, enable the Google Sheets & Drive APIs, and download the JSON key file.
+
+Share Sheet: Share your Google Sheet with the client_email from the JSON file.
+
+Replit Secrets: Store the entire content of the JSON key file in a Replit Secret named GOOGLE_CREDS.
+
+API Endpoints:
+
+GET /api/kpis
+
+Action: Connects to the Google Sheet, fetches all data into a Pandas DataFrame. Calculates key metrics for the last 30 days: total tickets, number of recurrent tickets, average resolution time (Fecha de cierre - Creado el), and SLA compliance (if you have an SLA column).
+
+Returns: A single JSON object like: {"total": 852, "recurrent": 128, "avg_time_hours": 4.1, "sla_percent": 98.5}.
+
+GET /api/charts?name=[chart_name]
+
+Action: Provides structured data for the three main dashboard charts. It will support name values of monthly_evolution (counts tickets grouped by month from Creado el), by_issue_type (counts tickets grouped by Incidencia), and recurrent_distribution (counts TRUE/FALSE from Reincidente).
+
+Returns: A JSON object ready for Chart.js: {"labels": [...], "data": [...]}.
+
+GET /api/latest-tickets
+
+Action: Fetches all data, sorts by Creado el in descending order, and returns the top 10 records.
+
+Returns: A JSON array of the 10 most recent ticket objects.
+
+GET /api/failure-analysis
+
+Action: Filters tickets based on the cliente and servicio query parameters.
+
+Returns: A JSON array of simplified objects for the custom scatter plot: [{"date": "2025-07-24", "issue": "Service Failure", "priority": "High"}, ...].
+
+GET /api/search-tickets
+
+Action: Filters the entire dataset based on multiple query parameters (e.g., status, priority, client).
+
+Returns: A JSON array containing all tickets that match the search criteria.
+
+4. Frontend Mockup (HTML & JavaScript)
+This defines the user interface and experience. All UI text should be in English.
+
+Page 1: Dashboard (index.html)
+Navigation: Links to "Dashboard", "Service Analysis", "Ticket Search".
+
+KPIs: Four cards displaying "Total Tickets (Month)", "Recurrent Tickets (Month)", "Avg. Resolution Time", and "SLA Compliance".
+
+Charts:
+
+Line Chart: "Tickets Over Time".
+
+Bar Chart: "Tickets by Issue Type".
+
+Pie Chart: "Recurrent Tickets Distribution".
+
+Table: "Latest Tickets", showing columns like ID, Subject, Client, Status, and Priority.
+
+Page 2: Service Failure Analysis (analysis.html)
+Filters: Two dropdown menus: "Select Client" and "Select Service".
+
+Chart: A large area for the custom "Failure History" scatter plot. The plot will update automatically when filters are changed.
+
+Page 3: Ticket Management (tickets.html)
+Filters: A comprehensive search panel with inputs for Date Range, Client, Service, Status, Priority, and Assigned To.
+
+Table: A full, paginated table of all tickets matching the filter criteria.
+
+Actions: An "Export to CSV" button.
+
+5. Configuration
+requirements.txt file:
+
+Flask
+pandas
+gspread
+oauth2client
+Run Command (in .replit or shell):
+
+python main.py

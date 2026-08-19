@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Search - Ticket Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% if simulated_date %}
+    <div class="alert alert-warning text-center mb-0 rounded-0" role="alert" style="border-left:0; border-right:0;">
+        <strong>Modo de Simulación Activo.</strong> Fecha fija: {{ simulated_date }}
+    </div>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-md-block sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-primary">Ticket Analysis</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/repeat-report">
+                                <i class="fas fa-redo me-2"></i>
+                                Repeat Report
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/analysis">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Service Analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/tickets">
+                                <i class="fas fa-search me-2"></i>
+                                Ticket Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-10 ms-sm-auto px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Ticket Search Management</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-success" onclick="exportToCSV()">
+                                <i class="fas fa-download"></i> Export to CSV
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshTickets()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Filters -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Search Filters</h5>
+                                <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse">
+                                    <i class="fas fa-filter"></i> Toggle Filters
+                                </button>
+                            </div>
+                            <div class="collapse show" id="filtersCollapse">
+                                <div class="card-body">
+                                    <!-- Quick Search Bar -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="quickSearchInput" class="form-label">
+                                                <i class="fas fa-search me-1"></i>Quick Search
+                                            </label>
+                                            <input type="text" class="form-control form-control-lg" id="quickSearchInput" placeholder="Search by ID, Subject, Client, Service, Status, Priority, Assigned To..." oninput="filterTicketsInRealTime()">
+                                            <small class="text-muted">Type to filter tickets in real-time</small>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <!-- Advanced Filters -->
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="dateRangeStart" class="form-label">Start Date</label>
+                                            <input type="date" class="form-control" id="dateRangeStart" onchange="searchTickets()">
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="dateRangeEnd" class="form-label">End Date</label>
+                                            <input type="date" class="form-control" id="dateRangeEnd" onchange="searchTickets()">
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="clientFilter" class="form-label">Client</label>
+                                            <select class="form-select" id="clientFilter" onchange="searchTickets()">
+                                                <option value="">All Clients</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="serviceFilter" class="form-label">Service</label>
+                                            <select class="form-select" id="serviceFilter" onchange="searchTickets()">
+                                                <option value="">All Services</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="statusFilter" class="form-label">Status</label>
+                                            <select class="form-select" id="statusFilter" onchange="searchTickets()">
+                                                <option value="">All Statuses</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="priorityFilter" class="form-label">Priority</label>
+                                            <select class="form-select" id="priorityFilter" onchange="searchTickets()">
+                                                <option value="">All Priorities</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="assignedFilter" class="form-label">Assigned To</label>
+                                            <select class="form-select" id="assignedFilter" onchange="searchTickets()">
+                                                <option value="">All Assignees</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-3 d-flex align-items-end">
+                                            <button type="button" class="btn btn-outline-secondary w-100" onclick="clearAllFilters()">
+                                                <i class="fas fa-eraser"></i> Clear All
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Summary -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted">Results: </span>
+                                <span id="resultsCount" class="fw-bold">0</span>
+                                <span class="text-muted"> tickets found</span>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changePageSize(10)">10</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changePageSize(25)">25</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm active" onclick="changePageSize(50)">50</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changePageSize(100)">100</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tickets Table -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="ticketsTable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Subject</th>
+                                                <th>Client</th>
+                                                <th>Service</th>
+                                                <th>Status</th>
+                                                <th>Priority</th>
+                                                <th>Created</th>
+                                                <th>Assigned To</th>
+                                                <th>Recurrent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="9" class="text-center text-muted py-4">
+                                                    <i class="fas fa-search fa-2x mb-2"></i>
+                                                    <br>Loading tickets...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Ticket pagination">
+                            <ul class="pagination justify-content-center" id="pagination">
+                                <!-- Pagination will be generated by JavaScript -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/app.js"></script>
+    <script>
+        // Initialize tickets page when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFilterOptions();
+            searchTickets();
+        });
+    </script>
+</body>
+</html>

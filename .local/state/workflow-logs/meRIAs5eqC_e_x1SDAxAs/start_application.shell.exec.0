@@ -1,0 +1,94 @@
+[2026-05-23 18:08:50 +0000] [208] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 18:08:50 +0000] [208] [INFO] Listening at: http://0.0.0.0:5000 (208)
+[2026-05-23 18:08:50 +0000] [208] [INFO] Using worker: sync
+[2026-05-23 18:08:50 +0000] [240] [INFO] Booting worker with pid: 240
+[2026-05-23 18:08:50 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:50 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:50 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:51 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:08:52 +0000] [208] [INFO] Handling signal: winch
+2026-05-23 18:08:54,306 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-23 18:08:54,311 - INFO - Added job "fetch_and_process_odoo_data" to job store "default"
+2026-05-23 18:08:54,311 - INFO - Scheduler started
+2026-05-23 18:08:54,316 - INFO - Realizando la primera carga de datos al arrancar la aplicación...
+== INICIANDO PROCESO DE ACTUALIZACIÓN DE DATOS (30 días) ==
+2026-05-23 18:08:54,316 - INFO - Intentando obtener credenciales de Odoo desde el entorno...
+2026-05-23 18:08:54,317 - INFO - Credenciales encontradas. Conectando a https://odoo.wispi.mx para la DB 'wispi17'...
+2026-05-23 18:08:55,074 - INFO - Autenticación exitosa. UID obtenido: 912
+================================================================================
+[DEBUG] 🕐 HORA ACTUAL (UTC): 2026-05-24 00:08:55 UTC+06:00
+================================================================================
+[DEBUG] 📅 FECHA INICIO (UTC): 2026-04-23 18:08:55 UTC+06:00 (hace 30 días + 6 horas)
+================================================================================
+[DEBUG] ⏱️  DIFERENCIA EXACTA: 30.250000 días
+================================================================================
+[DEBUG] 🔍 Domain de consulta a Odoo (fechas en UTC):
+[DEBUG]    Desde: 2026-04-23 18:08:55
+[DEBUG]    Hasta: 2026-05-24 00:08:55
+================================================================================
+['&', '&', ('create_date', '>=', '2026-04-23 18:08:55'), ('create_date', '<=', '2026-05-24 00:08:55'), '&', ('team_id.name', 'ilike', 'Cast'), ('team_id.id', 'not in', [41, 61])]
+--- [DEBUG ODOO] Consulta 'helpdesk.ticket' tardó: 1235.48 ms ---
+================================================================================
+[DEBUG] 📊 TOTAL DE TICKETS ENCONTRADOS: 913
+================================================================================
+         ID  ... Reincidente
+236  156106  ...        True
+237  156104  ...        True
+178  156102  ...        True
+238  156100  ...        True
+835  156098  ...        True
+836  156097  ...       False
+239  156096  ...        True
+240  156095  ...        True
+241  156094  ...       False
+242  156089  ...       False
+
+[10 rows x 18 columns]
+         ID  ... Reincidente
+830  154788  ...       False
+831  154785  ...       False
+174  154784  ...       False
+832  154783  ...       False
+833  154782  ...       False
+235  154781  ...       False
+175  154780  ...       False
+834  154779  ...       False
+176  154778  ...       False
+177  154777  ...       False
+
+[10 rows x 18 columns]
+[DEBUG] 📋 Tickets sin service_id asignado: 23 de 913
+--- [DEBUG ODOO] Consulta 'running.services' tardó: 711.03 ms ---
+Información de Servicios unida al DataFrame.
+Procesamiento finalizado. 913 tickets cargados en caché.
+[2026-05-23 18:12:55 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:12:55 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:12:56 +0000] [208] [INFO] Handling signal: winch
+[2026-05-23 18:12:56 +0000] [208] [INFO] Handling signal: winch

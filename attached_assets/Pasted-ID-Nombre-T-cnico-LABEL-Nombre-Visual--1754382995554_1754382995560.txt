@@ -1,0 +1,169 @@
+ID (Nombre Técnico)                 | LABEL (Nombre Visual)
+----------------------------------- | ------------------------------
+timer_start                         | Timer Start
+timer_pause                         | Timer Last Pause
+is_timer_running                    | Is Timer Running
+user_timer_id                       | User Timer
+display_timer_start_primary         | Display Timer Start Primary
+display_timer_stop                  | Display Timer Stop
+display_timer_pause                 | Display Timer Pause
+display_timer_resume                | Display Timer Resume
+duration_tracking                   | Status time
+activity_ids                        | Activities
+activity_state                      | Activity State
+activity_user_id                    | Responsible User
+activity_type_id                    | Next Activity Type
+activity_type_icon                  | Activity Type Icon
+activity_date_deadline              | Next Activity Deadline
+my_activity_date_deadline           | My Activity Deadline
+activity_summary                    | Next Activity Summary
+activity_exception_decoration       | Activity Exception Decoration
+activity_exception_icon             | Icon
+activity_calendar_event_id          | Next Activity Calendar Event
+message_is_follower                 | Is Follower
+message_follower_ids                | Followers
+message_partner_ids                 | Followers (Partners)
+message_ids                         | Messages
+has_message                         | Has Message
+message_needaction                  | Action Needed
+message_needaction_counter          | Number of Actions
+message_has_error                   | Message Delivery error
+message_has_error_counter           | Number of errors
+message_attachment_count            | Attachment Count
+rating_ids                          | Ratings
+website_message_ids                 | Website Messages
+message_has_sms_error               | SMS Delivery error
+rating_last_value                   | Rating Last Value
+rating_last_feedback                | Rating Last Feedback
+rating_last_image                   | Rating Last Image
+rating_count                        | Rating count
+rating_avg                          | Average Rating
+rating_avg_text                     | Rating Avg Text
+rating_percentage_satisfaction      | Rating Satisfaction
+rating_last_text                    | Rating Text
+campaign_id                         | Campaign
+source_id                           | Source
+medium_id                           | Medium
+email_cc                            | Email cc
+access_url                          | Portal Access URL
+access_token                        | Security Token
+access_warning                      | Access warning
+name                                | Subject
+team_id                             | Helpdesk Team
+use_sla                             | SLA Policies
+team_privacy_visibility             | Team Visibility
+description                         | Description
+active                              | Active
+ticket_type_id                      | Type
+tag_ids                             | Tags
+company_id                          | Company
+color                               | Color Index
+kanban_state                        | Kanban State
+kanban_state_label                  | Kanban State Label
+legend_blocked                      | Kanban Blocked Explanation
+legend_done                         | Kanban Valid Explanation
+legend_normal                       | Kanban Ongoing Explanation
+domain_user_ids                     | Domain User
+user_id                             | Assigned to
+properties                          | Properties
+partner_id                          | Customer
+partner_ticket_ids                  | Partner Tickets
+partner_ticket_count                | Number of other tickets from the same partner
+partner_open_ticket_count           | Number of other open tickets from the same partner
+partner_name                        | Customer Name
+partner_email                       | Customer Email
+partner_phone                       | Customer Phone
+commercial_partner_id               | Commercial Entity
+closed_by_partner                   | Closed by Partner
+priority                            | Priority
+stage_id                            | Stage
+fold                                | Folded in Kanban
+date_last_stage_update              | Last Stage Update
+ticket_ref                          | Ticket IDs Sequence
+assign_date                         | First assignment date
+assign_hours                        | Time to first assignment (hours)
+close_date                          | Close date
+close_hours                         | Time to close (hours)
+open_hours                          | Open Time (hours)
+sla_ids                             | SLAs
+sla_status_ids                      | SLA Status
+sla_reached_late                    | Has SLA reached late
+sla_reached                         | Has SLA reached
+sla_deadline                        | SLA Deadline
+sla_deadline_hours                  | Hours to SLA Deadline
+sla_fail                            | Failed SLA Policy
+sla_success                         | Success SLA Policy
+use_credit_notes                    | Use Credit Notes
+use_coupons                         | Use Coupons
+use_product_returns                 | Use Returns
+use_product_repairs                 | Use Repairs
+use_rating                          | Use Customer Ratings
+is_partner_email_update             | Partner Email will Update
+is_partner_phone_update             | Partner Phone will Update
+first_response_hours                | Hours to First Response
+avg_response_hours                  | Average Hours to Respond
+oldest_unanswered_customer_message_date | Oldest Unanswered Customer Message Date
+answered_customer_message_count     | # Exchanges
+total_response_hours                | Total Exchange Time in Hours
+display_extra_info                  | Display Extra Info
+id                                  | ID
+display_name                        | Display Name
+create_uid                          | Created by
+create_date                         | Created on
+write_uid                           | Last Updated by
+write_date                          | Last Updated on
+project_id                          | Project
+timesheet_ids                       | Timesheets
+use_helpdesk_timesheet              | Timesheet activated on Team
+display_timesheet_timer             | Display Timesheet Time
+total_hours_spent                   | Hours Spent
+display_timer_start_secondary       | Display Timer Start Secondary
+display_timer                       | Display Timer
+encode_uom_in_days                  | Encode Uom In Days
+analytic_account_id                 | Analytic Account
+use_fsm                             | Field Service
+fsm_task_ids                        | Tasks
+fsm_task_count                      | Fsm Task Count
+filter                              | Filter
+service_id                          | Related Service
+service_id_domain                   | Dynamic Domain for service_id
+parent_id                           | Parent Company
+radio_base_display                  | Radio Base
+service_equipment_id                | Radio
+service_delivery_type               | Delivery Type
+service_type                        | Service Type
+forum_post_ids                      | Forum Posts
+forum_post_count                    | Forum Post Count
+use_website_helpdesk_forum          | Help Center Active
+can_share_forum                     | Can Share Forum
+product_category                    | ID Product Category
+report                              | Costumer's Report
+issue                               | Issue
+issue_desc                          | Issue Description
+solution                            | Solution
+solution_desc                       | Solution Description
+solution_domain                     | Solution Domain
+product_id                          | Product
+suitable_product_ids                | Suitable Product
+has_partner_picking                 | Has Partner Picking
+tracking                            | Tracking
+lot_id                              | Lot/Serial Number
+pickings_count                      | Return Orders Count
+picking_ids                         | Return Orders
+sop_alert                           | Alert
+affected_equipment                  | Affected Equipment
+repairs_count                       | Repairs Count
+repair_ids                          | Repairs
+use_helpdesk_sale_timesheet         | Reinvoicing Timesheet activated on Team
+invoice_count                       | Invoice Count
+display_invoice_button              | Display Invoice Button
+sale_line_id                        | Sales Order Item
+project_sale_order_id               | Project's sale order
+remaining_hours_available           | Remaining Hours Available
+remaining_hours_so                  | Remaining Hours on SO
+partner_display_name_ticket         | Partner
+partner_category_vip_ticket         | Categoria VIP
+client_filter                       | Solo Clientes
+client_domain                       | Client Domain
+helpdesk_task_ids                   | Tasks
+x_studio_campo_de_prueba            | Campo de Prueba

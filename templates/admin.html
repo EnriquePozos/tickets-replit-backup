@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Dashboard de Tickets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fas fa-ticket-alt me-2"></i>Dashboard de Tickets
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text me-3">
+                    <i class="fas fa-user me-1"></i>{{ user.username }}
+                </span>
+                <a class="nav-link" href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt me-1"></i>Cerrar Sesión
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-users-cog me-2"></i>Panel de Administración
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>Usuarios Autorizados</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for username in users %}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-user me-2"></i>{{ username }}
+                                        </td>
+                                        <td>
+                                            {% if username == 'admin' %}
+                                                <span class="badge bg-danger">Administrador</span>
+                                            {% else %}
+                                                <span class="badge bg-primary">Usuario</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success">Active</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>Información del Sistema</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-shield-alt me-2"></i>Sistema de Autenticación</span>
+                                    <span class="badge bg-success">Active</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-database me-2"></i>Conexión a Odoo</span>
+                                    <span class="badge bg-success">Conectado</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-users me-2"></i>Total de Usuarios</span>
+                                    <span class="badge bg-info">{{ users|length }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>Agregar Nuevo Usuario</h5>
+                            <form method="POST" action="{{ url_for('add_user') }}" class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="username" placeholder="Nombre de usuario" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-plus me-2"></i>Agregar Usuario
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left me-2"></i>Volver al Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

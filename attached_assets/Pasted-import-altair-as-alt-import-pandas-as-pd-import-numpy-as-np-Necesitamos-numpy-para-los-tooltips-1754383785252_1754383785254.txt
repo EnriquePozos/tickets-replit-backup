@@ -1,0 +1,195 @@
+import altair as alt
+import pandas as pd
+import numpy as np  # Necesitamos numpy para los tooltips condicionales
+import gspread
+from gspread_dataframe import get_as_dataframe
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+import locale
+import os
+
+# --- CONFIGURACIÓN (LLENA TUS DATOS AQUÍ) ---
+SPREADSHEET_ID = "1bKMWnXeg8hViTsISxjnQINhO1NqbgLP-A2OAtbXx8EU"
+formato_fecha = '%d-%m-%Y'
+# --- Hoja 1: Fallas de Radiobases ---
+SHEET_RB = "Falla radiobase"  # Nombre de la hoja con fallas de Radiobases
+COL_SERVICIO_RB = "Servicio afectado"  # Nombre de la columna del servicio en esta hoja
+COL_RADIOBASE_RB = "Radiobase"
+COL_RADIOBASE_S = COL_RADIOBASE_RB
+COL_DETALLE_RB = "DESCRIPCION"  # Nombre de la columna con el detalle (la radiobase)
+COL_TICKET_RB = "No. Ticket"
+
+# --- Hoja 2: Fallas de Servicio ---
+SHEET_SERVICIO = "TICKETS IMPULSORA"  # Nombre de la hoja con fallas de Servicio
+COL_SERVICIO_S = "Servicio afectado"  # Nombre de la columna del servicio en esta hoja
+COL_DETALLE_S = "REPORTE DEL CLIENTE"  # Nombre de la columna con el detalle de la falla
+COL_TICKET_S = "ID"
+
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+
+
+def authenticate_google_sheets():
+    # ... (código de autenticación sin cambios)
+    creds = None
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open("token.json", "w") as token:
+            token.write(creds.to_json())
+    return creds
+
+
+def main():
+    # Configuración de idioma (sin cambios)
+    locales_a_intentar = ['es_MX.UTF-8', 'es_ES.UTF-8', 'Spanish']
+    locale_configurado = False
+    for loc in locales_a_intentar:
+        try:
+            locale.setlocale(locale.LC_TIME, loc)
+            print(f"INFO: Configuración regional de tiempo establecida a '{loc}'")
+            locale_configurado = True
+            break
+        except locale.Error:
+            continue
+    if not locale_configurado:
+        print("ADVERTENCIA: No se pudo establecer la configuración regional a español.")
+
+    print(f"INFO: Usando Altair versión: {alt.__version__}")
+    print("1. Autenticando y procesando datos...")
+
+    # Carga y combinación de datos (sin cambios)
+    creds = authenticate_google_sheets()
+    gc = gspread.authorize(creds)
+    spreadsheet = gc.open_by_key(SPREADSHEET_ID)
+
+    df_rb = get_as_dataframe(spreadsheet.worksheet(SHEET_RB), header=1).dropna(how='all')
+    df_rb['Tipo de Falla'] = 'Falla de Radiobase'
+    df_rb['Nombre Servicio'] = df_rb[COL_SERVICIO_RB]
+    df_rb['Radiobase'] = df_rb[COL_RADIOBASE_RB]
+    df_rb['Detalle'] = df_rb[COL_DETALLE_RB]
+    df_rb['Ticket'] = df_rb[COL_TICKET_RB]
+
+    df_s = get_as_dataframe(spreadsheet.worksheet(SHEET_SERVICIO), header=1).dropna(how='all')
+    df_s['Tipo de Falla'] = 'Falla de Servicio'
+    df_s['Nombre Servicio'] = df_s[COL_SERVICIO_S]
+    df_s['Detalle'] = df_s[COL_DETALLE_S]
+    df_s['Ticket'] = df_s[COL_TICKET_S]
+
+    # 1. Creamos un mapa de referencia: {Nombre Servicio -> Radiobase}
+    # Nos aseguramos de que solo haya una entrada por servicio para evitar duplicados.
+    mapa_radiobases = df_rb[['Nombre Servicio', 'Radiobase']].drop_duplicates(subset=['Nombre Servicio'])
+
+    # 2. Usamos pd.merge para añadir la columna 'Radiobase' a df_s basándonos en 'Nombre Servicio'
+    # 'how=left' mantiene todas las filas de df_s, incluso si no encuentran una radiobase.
+    df_s = pd.merge(df_s, mapa_radiobases, on='Nombre Servicio', how='left')
+
+    # 3. Rellenamos los casos donde no se encontró una radiobase
+    df_s['Radiobase'] = df_s['Radiobase'].fillna('Radiobase no especificada')
+    # --- FIN DE LA LÓGICA DE ASOCIACIÓN ---
+
+    print("3. Combinando los dos tipos de fallas...")
+    # Aseguramos que 'Radiobase' esté en la lista de columnas a unir.
+    columnas_comunes = ['Nombre Servicio', 'INICIO', 'TERMINO', 'Tipo de Falla', 'Detalle', 'Radiobase', 'Ticket']
+    df_combined = pd.concat([df_rb[columnas_comunes], df_s[columnas_comunes]], ignore_index=True)
+
+    df_combined['INICIO'] = pd.to_datetime(df_combined['INICIO'], errors='coerce', dayfirst=True)
+    df_combined['TERMINO'] = pd.to_datetime(df_combined['TERMINO'], errors='coerce', dayfirst=True)
+    df_filtered = df_combined.dropna(subset=['INICIO', 'TERMINO']).copy()
+
+    # --- SOLUCIÓN PARA EVENTOS DE UN DÍA (Versión 24 horas) ---
+    print("Ajustando eventos de un solo día para que duren 24 horas visualmente...")
+
+    # Identifica eventos cuyo inicio y fin son en el mismo día natural.
+    # Usamos .dt.date para comparar solo la parte de la fecha, ignorando la hora.
+    mismo_dia = df_filtered['INICIO'].dt.date == df_filtered['TERMINO'].dt.date
+
+    # Para esos eventos, ajustamos el INICIO a la medianoche (00:00) de ese día.
+    # .dt.normalize() hace exactamente esto.
+    df_filtered.loc[mismo_dia, 'INICIO'] = df_filtered.loc[mismo_dia, 'INICIO'].dt.normalize()
+
+    # Y ajustamos el TERMINO a las 23:59 de ese mismo día.
+    df_filtered.loc[mismo_dia, 'TERMINO'] = df_filtered.loc[mismo_dia, 'TERMINO'].dt.normalize() + pd.Timedelta(
+        hours=23, minutes=59)
+    # --- FIN DE LA SOLUCIÓN ---
+
+    # Preparación de etiquetas y tooltips (sin cambios)
+    df_filtered['Eje_Y_Label'] = df_filtered['Nombre Servicio'].str.replace(' / ', '\n', regex=False)
+    df_filtered['Tooltip_Detalle'] = np.where(
+        df_filtered['Tipo de Falla'] == 'Falla de Radiobase',
+        'Causa: ' + df_filtered['Detalle'].astype(str),
+        'Causa: ' + df_filtered['Detalle'].astype(str)
+    )
+
+    print("2. Creando los gráficos base...")
+    labels_df = pd.DataFrame({'Eje_Y_Label': df_filtered['Eje_Y_Label'].unique()})
+
+    # Construcción del gráfico y unión final (sin cambios)
+    labels_chart = alt.Chart(labels_df).mark_text(
+        align='left', baseline='middle', fontSize=11, lineBreak='\n'
+    ).encode(
+        text='Eje_Y_Label:N',
+        y=alt.Y('Eje_Y_Label:N', sort=None, title='Servicio Afectado', axis=alt.Axis(labels=False, labelFontSize = 20, titleFontSize = 16))
+    ).properties(width = 0)
+
+    timeline_chart = alt.Chart(df_filtered).mark_bar(cornerRadius=4).encode(
+        x=alt.X('INICIO:T', axis=alt.Axis(title=None, format='%b-%d', labelAngle=0, labelFontSize= 14, grid=True, gridDash= [3,3], gridColor = '#EAEAEA')),
+        x2='TERMINO:T',
+        y=alt.Y('Eje_Y_Label:N', sort=None, axis=alt.Axis(title=None, labels=False, grid=True, gridDash= [3,3], gridColor = '#EAEAEA')),
+        color=alt.Color('Tipo de Falla:N',
+                        scale=alt.Scale(domain=['Falla de Radiobase', 'Falla de Servicio'], range=['red', 'orange']),
+                        legend=alt.Legend(
+                            title=None,
+                            orient='top',
+                            labelFontSize=14,
+                            symbolSize=300,
+                            symbolType='square',
+                            direction='horizontal',  # Pone los elementos en una fila horizontal
+                            labelAlign='left',  # Alinea el texto a la izquierda del cuadrado de color
+                            legendX=300  # <-- LA CLAVE: Empuja la leyenda 300px desde la izquierda
+                        )),
+        tooltip=[
+            alt.Tooltip('Nombre Servicio:N', title='Servicio'),
+            alt.Tooltip('Ticket:N', title= 'Ticket'),
+            alt.Tooltip('Tipo de Falla:N'),
+            alt.Tooltip('Radiobase:N', title= 'Radiobase'),
+            alt.Tooltip('Tooltip_Detalle:N', title='Detalle'),
+            alt.Tooltip('INICIO:T', title='Fecha de Inicio', format='%Y-%m-%d %H:%M'),
+            alt.Tooltip('TERMINO:T', title='Fecha de Término', format='%Y-%m-%d %H:%M')
+        ]
+    ).properties(width=600, height=alt.Step(30))
+
+    final_chart = alt.hconcat(
+        labels_chart,
+        timeline_chart,
+        spacing=5
+    ).resolve_scale(
+        y='shared'
+    ).properties(
+        title=alt.TitleParams(
+            text="Fallas de Servicios",
+            fontSize=16, # <-- Aplicamos el ajuste
+            anchor='middle')
+
+    ).configure_view(
+        strokeWidth=0
+    ).configure_axis(
+        grid=False, domain=False, ticks=False
+    )
+
+    final_chart = final_chart.interactive()
+
+    print("3. Guardando el gráfico final...")
+    final_chart.save('fallas_unificadas_timeline_FINAL.html')
+    print("\n¡Proceso completado! Los eventos de un día ahora abarcan 24h.")
+
+
+if __name__ == "__main__":
+    main()
+
+

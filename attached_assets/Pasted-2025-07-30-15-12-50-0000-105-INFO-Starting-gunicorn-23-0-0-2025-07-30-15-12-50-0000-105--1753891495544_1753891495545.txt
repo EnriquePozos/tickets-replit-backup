@@ -1,0 +1,32 @@
+2025-07-30 15:12:50 +0000] [105] [INFO] Starting gunicorn 23.0.0
+[2025-07-30 15:12:50 +0000] [105] [INFO] Listening at: http://0.0.0.0:5000 (105)
+[2025-07-30 15:12:50 +0000] [105] [INFO] Using worker: sync
+[2025-07-30 15:12:50 +0000] [125] [INFO] Booting worker with pid: 125
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+[2025-07-30 15:12:50 +0000] [105] [INFO] Handling signal: winch
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+[2025-07-30 16:03:48 +0000] [105] [INFO] Handling signal: winch
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+[2025-07-30 16:03:48 +0000] [105] [INFO] Handling signal: winch
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+ERROR:root:Error connecting to Google Sheets: Service account info was not in the expected format, missing fields client_email, token_uri.
+[2025-07-30 16:03:48 +0000] [105] [INFO] Handling signal: winch
